@@ -1,0 +1,20 @@
+name: Build Flatpak
+on:
+  push:
+    branches: [master]
+
+jobs:
+  update-flatpak:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:freedesktop-24.08
+      options: --privileged
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Build Flatpak extension
+        uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          bundle: com.valvesoftware.Steam.Utility.VulkanTools.flatpak
+          manifest-path: com.valvesoftware.Steam.Utility.VulkanTools.yml
+          verbose: true
