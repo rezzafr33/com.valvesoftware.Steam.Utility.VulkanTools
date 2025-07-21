@@ -1,0 +1,46 @@
+id: com.valvesoftware.Steam.Utility.VulkanTools
+branch: stable
+sdk: org.freedesktop.Sdk//24.08
+runtime: com.valvesoftware.Steam
+runtime-version: stable
+build-extension: true
+appstream-compose: false
+separate-locales: false
+
+cleanup:
+  - /include
+  - /lib
+  - /share
+
+modules:
+  - name: Vulkan-Tools
+    buildsystem: cmake-ninja
+    builddir: true
+    config-opts:
+      - -DCMAKE_INSTALL_PREFIX=/app/utils/VulkanTools
+      - -DVULKAN_HEADERS_INSTALL_DIR=/app/utils/VulkanTools
+      - -DCMAKE_BUILD_TYPE=Release
+    sources:
+      - type: git
+        url: https://github.com/KhronosGroup/Vulkan-Tools.git
+        tag: vulkan-sdk-1.3.296.0
+    modules:
+      - name: vulkan-headers
+        buildsystem: cmake-ninja
+        builddir: true
+        config-opts:
+          - -DCMAKE_INSTALL_PREFIX=/app/utils/VulkanTools
+        sources:
+          - type: git
+            url: https://github.com/KhronosGroup/Vulkan-Headers.git
+            tag: vulkan-sdk-1.3.296.0
+      - name: volk
+        buildsystem: cmake-ninja
+        builddir: true
+        config-opts:
+          - -DCMAKE_INSTALL_PREFIX=/app/utils/VulkanTools
+          - -DVOLK_INSTALL=ON
+        sources:
+          - type: git
+            url: https://github.com/zeux/volk.git
+            tag: vulkan-sdk-1.3.296.0
