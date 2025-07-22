@@ -1,7 +1,7 @@
 name: Build Flatpak
 on:
   push:
-    branches: [master]
+    branches: [sign]
 
 jobs:
   update-flatpak:
@@ -17,4 +17,5 @@ jobs:
         with:
           bundle: com.valvesoftware.Steam.Utility.VulkanTools.flatpak
           manifest-path: com.valvesoftware.Steam.Utility.VulkanTools.yml
+          gpg-sign: ${{ secrets.GPG_KEY }}
           verbose: true
