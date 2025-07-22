@@ -1,7 +1,7 @@
 name: Build Flatpak
 on:
   push:
-    branches: [sign]
+    branches: [master]
 
 jobs:
   update-flatpak:
